@@ -1,0 +1,32 @@
+name: "CodeQL"
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Schedule a weekly scan.
+    - cron: '0 0 * * 0'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # List the languages that CodeQL should scan in your repository.
+        language: [ 'javascript', 'CSS', 'HTML' ]
+        # Replace or add more languages based on your project (e.g., 'java', 'ruby').
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Perform CodeQL analysis
+      uses: github/codeql-action/analyze@v2
